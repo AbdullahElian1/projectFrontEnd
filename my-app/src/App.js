@@ -3,9 +3,8 @@ import Header from './component/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './component/Footer';
 import { withAuth0 } from '@auth0/auth0-react';
-// import LoginButton from './component/Loginbutton';
-import Loginbutton from './component/Loginbutton'
-import Home from './component/home/Home'
+import Home from './component/home/Home';
+import LogoutButton from './component/LogoutButton';
 
 
 import {
@@ -14,13 +13,13 @@ import {
   Route
 } from "react-router-dom";
 
-import Tes from './Tes'
 
 export class App extends Component {
+
+  
   render() {
     return (
       <div>
-        <Loginbutton />
         <Router>
         <Header />
           <Switch>
