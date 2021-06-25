@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import InputForm from "./InputForm";
 import axios from "axios";
-import CardData from './CardData';
+import CardData from "./CardData";
+import SelectedPhoto from "../myphoto/SelectedPhoto";
 export class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
       photoData: [],
+      picData: {},
     };
   }
 
@@ -27,11 +29,31 @@ export class Home extends Component {
       console.log(e);
     }
   };
+
+  sendPhoto = async (title, des, imgUrl) => {
+    let email='abodelian28@gmail.com';
+    
+    await this.setState({
+      picData: { title, des, imgUrl,email }
+    });
+ 
+    let url = `http://localhost:3010/addPhoto`;
+    axios.post(url, this.state.picData).then((result) => {
+      console.log('done');
+
+    });
+
+
+
+
+    console.log(this.state.picData);
+  };
+
   render() {
     return (
       <div>
         <InputForm getPhoto={this.searchPhoto} />
-        <CardData data={this.state.photoData}/>
+        <CardData data={this.state.photoData} test={this.sendPhoto} />
       </div>
     );
   }

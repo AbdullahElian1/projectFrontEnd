@@ -17,7 +17,7 @@ export class CardData extends Component {
             <Card.Text>
              {item.description}
             </Card.Text>
-            <Button variant="primary">Add To My Photo</Button>
+            <Button variant="primary" onClick={()=>this.props.test(item.title,item.description,item.imagel)}>Add To My Photo</Button>
           </Card.Body>
         </Card>
 
