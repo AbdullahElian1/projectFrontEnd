@@ -3,7 +3,7 @@ import { Navbar} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import Loginbutton from './Loginbutton';
-import Logoutbottun1 from './LogoutButton';
+import Logoutbtn from './Logoutbtn';
 import { withAuth0 } from '@auth0/auth0-react';
 
 
@@ -24,8 +24,13 @@ export class Header extends Component {
           <Link to="/Environment">Environment</Link>
           <Link to="/AboutUs">About Us</Link>
    \
-       {/* {isAuthenticate ? <Loginbutton />:<Logoutbottun /> } */}
-       {/* <Logoutbottun1 /> */}
+       {isAuthenticate ? <Logoutbtn />:'' }
+     
+       {isAuthenticate ?   '':<Loginbutton /> }
+
+       {/* <Logoutbtn /> */}
+
+       
         </Navbar>
       </div>
     );

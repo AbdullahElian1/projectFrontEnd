@@ -6,6 +6,8 @@ import { withAuth0 } from '@auth0/auth0-react';
 import Home from './component/home/Home';
 import LogoutButton from './component/LogoutButton';
 import MyPhoto from './component/myphoto/MyPhoto';
+import LoginButton from './component/Loginbutton';
+import Logoutbtn from './component/Logoutbtn';
 
 
 import {
@@ -22,6 +24,9 @@ export class App extends Component {
   render() {
     return (
       <div>
+       
+        
+        
         <Router>
         <Header />
           <Switch>
