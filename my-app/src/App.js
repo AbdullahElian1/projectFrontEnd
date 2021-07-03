@@ -20,8 +20,11 @@ import {
 
 export class App extends Component {
 
+
   
   render() {
+    const {isAuthenticated,user }=this.props.auth0;
+
     return (
       <div>
        
@@ -36,7 +39,7 @@ export class App extends Component {
             </Route>
 
             <Route  path="/myphotos">
-              <MyPhoto />
+              {isAuthenticated ? <MyPhoto />:''}
               
 
             </Route>

@@ -2,14 +2,18 @@ import React, { Component } from "react";
 import InputForm from "./InputForm";
 import axios from "axios";
 import CardData from "./CardData";
-import SelectedPhoto from "../myphoto/SelectedPhoto";
+import { withAuth0 } from '@auth0/auth0-react';
+
 export class Home extends Component {
+  
+  
   constructor(props) {
     super(props);
     this.state = {
       name: "",
       photoData: [],
       picData: {},
+      flag:true
     };
   }
 
@@ -18,7 +22,24 @@ export class Home extends Component {
     let max = 8
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
+//http://localhost:3010/initdb?
+addUserToDB=async ()=>{
+  const email= this.props.auth0.user.email;
+  console.log(email);
+  let obj={email};
 
+  let url = `http://localhost:3010/initdb`;
+    axios.post(url,obj ).then((result) => {
+      console.log('done');
+      this.setState({
+        flag:false
+
+      })
+    });
+
+
+
+}
   componentDidMount= async () => {
 
     let random=this.getRandomIntInclusive();
@@ -36,6 +57,14 @@ export class Home extends Component {
     } catch (e) {
       console.log(e);
     }
+
+    if( this.props.auth0.isAuthenticated){
+        
+        this.addUserToDB();
+    }
+
+    
+    
   };
 
   searchPhoto = async (event) => {
@@ -54,9 +83,9 @@ export class Home extends Component {
       console.log(e);
     }
   };
-
+  
   sendPhoto = async (title, des, imgUrl) => {
-    let email='abodelian28@gmail.com';
+    let email=this.props.auth0.user.email;
     
     await this.setState({
       picData: { title, des, imgUrl,email }
@@ -65,9 +94,12 @@ export class Home extends Component {
     let url = `http://localhost:3010/addPhoto`;
     axios.post(url, this.state.picData).then((result) => {
       console.log('done');
-
+      
     });
 
+  
+    
+    
 
 
 
@@ -75,8 +107,12 @@ export class Home extends Component {
   };
 
   render() {
+    const { isAuthenticated, user } = this.props.auth0;
+
     return (
       <div>
+        {/* {isAuthenticated && this.state.flag && this.addUserToDB()} */}
+
         <InputForm getPhoto={this.searchPhoto} />
         <CardData data={this.state.photoData} test={this.sendPhoto} />
       </div>
@@ -84,4 +120,4 @@ export class Home extends Component {
   }
 }
 
-export default Home;
+export default withAuth0(Home);
